@@ -18,6 +18,15 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-// define semua models yang ada pada aplikasi
-db.relation = require('./relation')(sequelize, Sequelize);
-module.exports = db;
+db.categories = require('./category')(sequelize, Sequelize);
+db.quizzes = require('./quiz')(sequelize, Sequelize);
+
+db.quizzes.belongsTo(db.categories, {
+    primaryKey: 'id',
+    as: 'category'
+})
+
+// db.quizzes.belongsTo(db.categories , {foreignKey: 'categoryId', as: 'category'});
+// db.categories.hasMany(db.quizzes,);
+
+module.exports =db;
